@@ -11,4 +11,4 @@ $ yarn install
 $ yarn tauri build
 ```
 
-It should output the binaries for your platform at the `src-tauri/target/realease` folder
+It should output the binaries for your platform at the `src-tauri/target/release` folder
