@@ -3,17 +3,28 @@
   import { Renderer2D } from "./renderer";
   import { Wheel } from "./components";
 
+  export let item: string = "";
+
   let canvas: HTMLCanvasElement;
   let canvasSize = 300;
 
-  onMount(() => {
-    const renderer = new Renderer2D(canvas);
+  let renderer: Renderer2D;
+  let wheel = new Wheel(canvasSize / 2 * 0.95);
 
-    const items = ["a", "b"];
-    const wheel = new Wheel(canvasSize / 2 * 0.95, items);
+  $: if (item) {
+    wheel.addItem(item);
+  }
 
-    renderer.addDrawable(wheel);
+  function eventLoop() {
     renderer.draw();
+    window.requestAnimationFrame(eventLoop);
+  }
+
+  onMount(() => {
+    renderer = new Renderer2D(canvas);
+    renderer.addDrawable(wheel);
+
+    window.requestAnimationFrame(eventLoop);
   });
 </script>
 

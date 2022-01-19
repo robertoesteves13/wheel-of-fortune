@@ -37,6 +37,7 @@ export class Renderer2D {
   }
 
   public draw(): void {
+    this.ctx.clearRect(0, 0, this.sizeX, this.sizeY);
     for (const drawable of this.drawableList) {
       drawable.draw(this.ctx);
     }

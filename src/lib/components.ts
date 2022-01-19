@@ -1,14 +1,13 @@
 import type { Drawable2D } from './renderer';
 
 export class Wheel implements Drawable2D {
-  public items: string[];
-  public radius: number;
+  private items: string[] = [];
+  private radius: number;
 
-  constructor(pRadius: number, pItems: string[]) {
+  constructor(pRadius: number) {
     this.radius = pRadius;
-    this.items = pItems;
   }
-
+  
   public drawPie(ctx: CanvasRenderingContext2D) {
     const canvasCenter = {
       x: ctx.canvas.width / 2,
@@ -29,6 +28,10 @@ export class Wheel implements Drawable2D {
     }
 
     ctx.stroke();
+  }
+
+  public addItem(item: string) {
+    this.items = [...this.items, item];
   }
 
   public drawBorder(ctx: CanvasRenderingContext2D) {
