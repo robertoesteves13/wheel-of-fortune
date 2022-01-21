@@ -1,11 +1,22 @@
 <script lang="ts">
   import Wheel from "./lib/Wheel.svelte";
+  import { Item } from "./lib/data";
 
   let input: string;
-  let item = "";
+  let color = "red";
+  let item = new Item();
 
   function addItem() {
-    item = input;
+    item = {
+      name: input,
+      color: color
+    };
+
+    if (color == "red") {
+        color = "blue";
+      } else {
+        color = "red";
+      }
     input = "";
   }
 </script>
