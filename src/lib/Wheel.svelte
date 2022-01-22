@@ -16,6 +16,11 @@
     wheel.addItem(item);
   }
 
+  function spinWheel() {
+    const random = (Math.random() + 1) * 3;
+    wheel.spin(random);
+  }
+
   function eventLoop() {
     renderer.draw();
     window.requestAnimationFrame(eventLoop);
@@ -29,4 +34,4 @@
   });
 </script>
 
-<canvas bind:this={canvas} width={canvasSize} height={canvasSize}/>
+<canvas bind:this={canvas} on:click={spinWheel} width={canvasSize} height={canvasSize}/>

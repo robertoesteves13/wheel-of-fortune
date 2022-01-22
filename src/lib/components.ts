@@ -9,6 +9,7 @@ interface Coordinates {
 export class Wheel implements Drawable2D {
   private items: Item[];
   private radius: number;
+  private acceleration: number = 0;
 
   constructor(pRadius: number) {
     this.radius = pRadius;
@@ -29,6 +30,18 @@ export class Wheel implements Drawable2D {
     ctx.closePath();
     ctx.fill();
     ctx.stroke();
+  }
+
+  private rotateWheel(ctx: CanvasRenderingContext2D) {
+    ctx.translate(ctx.canvas.height / 2, ctx.canvas.width / 2);
+    ctx.rotate(20 * Math.PI / 180 * this.acceleration);
+    ctx.translate(ctx.canvas.height / 2 * -1, ctx.canvas.width / 2 * -1);
+
+    if (this.acceleration > 0) {
+      this.acceleration -= 0.01;
+    } else if (this.acceleration < 0) {
+      this.acceleration = 0;
+    }
   }
 
   private drawMiddle(ctx: CanvasRenderingContext2D) {
@@ -62,6 +75,10 @@ export class Wheel implements Drawable2D {
     this.items = [...this.items, item];
   }
 
+  public spin(force: number) {
+    this.acceleration += force;
+  }
+
   private drawBorder(ctx: CanvasRenderingContext2D) {
     ctx.beginPath();
     ctx.strokeStyle = "gray";
@@ -71,6 +88,8 @@ export class Wheel implements Drawable2D {
   }
 
   public draw(ctx: CanvasRenderingContext2D) {
+    this.rotateWheel(ctx);
+
     this.drawPie(ctx);
     this.drawMiddle(ctx);
     this.drawBorder(ctx);
